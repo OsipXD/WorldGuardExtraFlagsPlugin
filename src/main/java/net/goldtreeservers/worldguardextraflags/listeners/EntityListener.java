@@ -14,7 +14,7 @@ public class EntityListener implements Listener {
     public void onPortalCreateEvent(PortalCreateEvent event) {
         for (Block block : event.getBlocks()) {
             ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(block.getLocation());
-            State allowNetherPortals = regions.queryValue(null, WorldGuardExtraFlagsPlugin.netherPortals);
+            State allowNetherPortals = regions.queryValue(null, WorldGuardExtraFlagsPlugin.NETHER_PORTALS);
             if (allowNetherPortals == State.DENY) {
                 event.setCancelled(true);
                 return;

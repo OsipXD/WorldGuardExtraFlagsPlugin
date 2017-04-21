@@ -36,19 +36,19 @@ import java.util.Set;
 public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerTeleportEvent(PlayerTeleportEvent event) {
-        event.getPlayer().removeMetadata("WorldGuardExtraFlagsWaitingForTeleportationToBeDone", WorldGuardExtraFlagsPlugin.getPlugin());
+        event.getPlayer().removeMetadata("WorldGuardExtraFlagsWaitingForTeleportationToBeDone", WorldGuardExtraFlagsPlugin.getInstance());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDeathEvent(PlayerDeathEvent event) {
         ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getEntity().getLocation());
-        Boolean keepInventory = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getEntity()), WorldGuardExtraFlagsPlugin.keepInventory);
+        Boolean keepInventory = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getEntity()), WorldGuardExtraFlagsPlugin.KEEP_INVENTORY);
         if (keepInventory != null && keepInventory) {
             event.setKeepInventory(true);
             event.getDrops().clear();
         }
 
-        Boolean keepExp = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getEntity()), WorldGuardExtraFlagsPlugin.keepExp);
+        Boolean keepExp = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getEntity()), WorldGuardExtraFlagsPlugin.KEEP_EXP);
         if (keepExp != null && keepExp) {
             event.setKeepLevel(true);
             event.setDroppedExp(0);
@@ -58,8 +58,8 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
         ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getPlayer().getLocation());
-        String prefix = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.chatPrefix);
-        String suffix = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.chatSuffix);
+        String prefix = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.CHAT_PREFIX);
+        String suffix = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.CHAT_SUFFIX);
 
         if (prefix != null) {
             event.setFormat(prefix + event.getFormat());
@@ -73,7 +73,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerRespawnEvent(PlayerRespawnEvent event) {
         ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getPlayer().getLocation());
-        Location respawnLocation = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.respawnLocation);
+        Location respawnLocation = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.RESPAWN_LOCATION);
         if (respawnLocation != null) {
             event.setRespawnLocation(BukkitUtil.toLocation(respawnLocation));
         }
@@ -95,7 +95,7 @@ public class PlayerListener implements Listener {
                 ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getPlayer().getLocation());
 
                 List<PotionEffectType> effects = new ArrayList<PotionEffectType>();
-                for (Set<PotionEffect> potionEffects : regions.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.giveEffects)) {
+                for (Set<PotionEffect> potionEffects : regions.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.GIVE_EFFECTS)) {
                     if (potionEffects != null) {
                         for (PotionEffect potionEffect : potionEffects) {
                             if (potionEffect != null) {
@@ -119,7 +119,7 @@ public class PlayerListener implements Listener {
 
                 }
             }
-        }.runTask(WorldGuardExtraFlagsPlugin.getPlugin());
+        }.runTask(WorldGuardExtraFlagsPlugin.getInstance());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -135,7 +135,7 @@ public class PlayerListener implements Listener {
                                 MythicMob mm = EggManager.getMythicMobFromEgg(lore.get(2));
                                 if (mm != null) {
                                     ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getAction() == Action.RIGHT_CLICK_BLOCK ? event.getClickedBlock().getLocation() : event.getPlayer().getLocation());
-                                    State state = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.mythicMobsEggs);
+                                    State state = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.MYTHIC_MOBS_EGGS);
                                     if (state == State.DENY) {
                                         event.setCancelled(true);
                                         event.setUseItemInHand(Result.DENY);
@@ -177,13 +177,13 @@ public class PlayerListener implements Listener {
 
                 }
             }
-        }.runTaskLater(WorldGuardExtraFlagsPlugin.getPlugin(), 2);
+        }.runTaskLater(WorldGuardExtraFlagsPlugin.getInstance(), 2);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerItemDamageEvent(PlayerItemDamageEvent event) {
         ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getPlayer().getLocation());
-        State state = regions.queryState(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.itemDurability);
+        State state = regions.queryState(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(event.getPlayer()), WorldGuardExtraFlagsPlugin.ITEM_DURABILITY);
         if (state == State.DENY) {
             event.setCancelled(true);
         }

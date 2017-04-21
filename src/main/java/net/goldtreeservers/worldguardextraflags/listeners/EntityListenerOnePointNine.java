@@ -21,7 +21,7 @@ public class EntityListenerOnePointNine implements Listener {
             }
 
             ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(event.getEntity().getLocation());
-            State allowGliding = regions.queryValue(event.getEntity() instanceof Player ? WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer((Player) event.getEntity()) : null, WorldGuardExtraFlagsPlugin.glide);
+            State allowGliding = regions.queryValue(event.getEntity() instanceof Player ? WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer((Player) event.getEntity()) : null, WorldGuardExtraFlagsPlugin.GLIDE);
             if (allowGliding != null) {
                 event.setCancelled(true);
                 ((LivingEntity) event.getEntity()).setGliding(allowGliding == State.ALLOW);

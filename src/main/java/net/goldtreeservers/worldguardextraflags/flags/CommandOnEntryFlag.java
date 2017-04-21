@@ -21,14 +21,14 @@ public class CommandOnEntryFlag extends Handler {
     @Override
     public final void initialize(Player player, Location current, ApplicableRegionSet set) {
         for (ProtectedRegion region : set) {
-            this.runCommands(region.getFlag(WorldGuardExtraFlagsPlugin.commandOnEntry), player);
+            this.runCommands(region.getFlag(WorldGuardExtraFlagsPlugin.COMMAND_ON_ENTRY), player);
         }
     }
 
     @Override
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         for (ProtectedRegion region : entered) {
-            this.runCommands(region.getFlag(WorldGuardExtraFlagsPlugin.commandOnEntry), player);
+            this.runCommands(region.getFlag(WorldGuardExtraFlagsPlugin.COMMAND_ON_ENTRY), player);
         }
 
         return true;
@@ -41,7 +41,7 @@ public class CommandOnEntryFlag extends Handler {
 
                 try {
                     player.setOp(true);
-                    WorldGuardExtraFlagsPlugin.getPlugin().getServer().dispatchCommand(player, command.substring(1).replace("%username%", player.getName()));
+                    WorldGuardExtraFlagsPlugin.getInstance().getServer().dispatchCommand(player, command.substring(1).replace("%username%", player.getName()));
                 } finally {
                     player.setOp(isOp);
                 }

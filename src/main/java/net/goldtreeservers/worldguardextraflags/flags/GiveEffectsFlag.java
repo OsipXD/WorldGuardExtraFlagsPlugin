@@ -24,7 +24,7 @@ public class GiveEffectsFlag extends Handler {
     @Override
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         for (ProtectedRegion enterd : entered) {
-            Set<PotionEffect> potionEffects = enterd.getFlag(WorldGuardExtraFlagsPlugin.giveEffects);
+            Set<PotionEffect> potionEffects = enterd.getFlag(WorldGuardExtraFlagsPlugin.GIVE_EFFECTS);
             if (potionEffects != null) {
                 for (PotionEffect potionEffect : potionEffects) {
                     if (potionEffect != null) {
@@ -49,7 +49,7 @@ public class GiveEffectsFlag extends Handler {
         }
 
         for (ProtectedRegion exitd : exited) {
-            Set<PotionEffect> potionEffects = exitd.getFlag(WorldGuardExtraFlagsPlugin.giveEffects);
+            Set<PotionEffect> potionEffects = exitd.getFlag(WorldGuardExtraFlagsPlugin.GIVE_EFFECTS);
             if (potionEffects != null) {
                 for (PotionEffect potionEffect : potionEffects) {
                     if (potionEffect != null) {
@@ -77,7 +77,7 @@ public class GiveEffectsFlag extends Handler {
         }
 
         List<PotionEffectType> shouldRemove = new ArrayList<PotionEffectType>(this.effectsGiven);
-        for (Set<PotionEffect> potionEffects : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.giveEffects)) {
+        for (Set<PotionEffect> potionEffects : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.GIVE_EFFECTS)) {
             if (potionEffects != null) {
                 for (PotionEffect potionEffect : potionEffects) {
                     if (potionEffect != null) {

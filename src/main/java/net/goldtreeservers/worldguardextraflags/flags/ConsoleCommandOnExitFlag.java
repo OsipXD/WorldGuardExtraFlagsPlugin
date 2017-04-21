@@ -21,10 +21,10 @@ public class ConsoleCommandOnExitFlag extends Handler {
     @Override
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         for (ProtectedRegion region : exited) {
-            Set<String> commands = region.getFlag(WorldGuardExtraFlagsPlugin.consoleCommandOnExit);
+            Set<String> commands = region.getFlag(WorldGuardExtraFlagsPlugin.CONSOLE_COMMAND_ON_EXIT);
             if (commands != null) {
                 for (String command : commands) {
-                    WorldGuardExtraFlagsPlugin.getPlugin().getServer().dispatchCommand(WorldGuardExtraFlagsPlugin.getPlugin().getServer().getConsoleSender(), command.substring(1).replace("%username%", player.getName()));
+                    WorldGuardExtraFlagsPlugin.getInstance().getServer().dispatchCommand(WorldGuardExtraFlagsPlugin.getInstance().getServer().getConsoleSender(), command.substring(1).replace("%username%", player.getName()));
                 }
             }
         }

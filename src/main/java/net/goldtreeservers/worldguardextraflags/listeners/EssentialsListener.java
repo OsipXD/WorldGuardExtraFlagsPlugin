@@ -16,7 +16,7 @@ public class EssentialsListener implements Listener {
         Player player = event.getController().getBase();
 
         if (!sessionManager.hasBypass(player, player.getWorld())) {
-            if (sessionManager.get(player).getHandler(GodmodeFlag.class).getIsGodModeEnabled() != null) {
+            if (sessionManager.get(player).getHandler(GodmodeFlag.class).getIsGodmodeEnabled() != null) {
                 event.setCancelled(true);
             }
         }

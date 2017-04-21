@@ -20,7 +20,7 @@ public class WorldListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChunkUnloadEvent(ChunkUnloadEvent event) {
         for (ProtectedRegion region : WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionManager(event.getWorld()).getApplicableRegions(new ProtectedCuboidRegion("UnloadChunkFlagTester", new BlockVector(event.getChunk().getX()*16, 0, event.getChunk().getZ()*16), new BlockVector(event.getChunk().getX()*16 + 15, 256, event.getChunk().getZ()*16 + 15)))) {
-            if (region.getFlag(WorldGuardExtraFlagsPlugin.chunkUnload) == State.DENY) {
+            if (region.getFlag(WorldGuardExtraFlagsPlugin.CHUNK_UNLOAD) == State.DENY) {
                 event.setCancelled(true);
                 break;
             }

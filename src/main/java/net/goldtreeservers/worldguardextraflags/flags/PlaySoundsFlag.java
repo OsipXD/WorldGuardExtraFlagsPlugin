@@ -27,7 +27,7 @@ public class PlaySoundsFlag extends Handler {
     @Override
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         for (ProtectedRegion region : entered) {
-            Set<SoundData> sounds = region.getFlag(WorldGuardExtraFlagsPlugin.playSounds);
+            Set<SoundData> sounds = region.getFlag(WorldGuardExtraFlagsPlugin.PLAY_SOUNDS);
             if (sounds != null) {
                 for (SoundData sound : sounds) {
                     BukkitRunnable runnable = new BukkitRunnable() {
@@ -49,13 +49,13 @@ public class PlaySoundsFlag extends Handler {
                     };
 
                     this.runnables.put(sound.getSound(), runnable);
-                    runnable.runTaskTimer(WorldGuardExtraFlagsPlugin.getPlugin(), 0L, sound.getInterval());
+                    runnable.runTaskTimer(WorldGuardExtraFlagsPlugin.getInstance(), 0L, sound.getInterval());
                 }
             }
         }
 
         for (ProtectedRegion region : exited) {
-            Set<SoundData> sounds = region.getFlag(WorldGuardExtraFlagsPlugin.playSounds);
+            Set<SoundData> sounds = region.getFlag(WorldGuardExtraFlagsPlugin.PLAY_SOUNDS);
             if (sounds != null) {
                 for (SoundData sound : sounds) {
                     this.runnables.remove(sound.getSound()).cancel();
@@ -68,7 +68,7 @@ public class PlaySoundsFlag extends Handler {
     @Override
     public void tick(Player player, ApplicableRegionSet set) {
         HashSet<String> foundSongs = new HashSet<String>();
-        for (Set<SoundData> sounds : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.playSounds)) {
+        for (Set<SoundData> sounds : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.PLAY_SOUNDS)) {
             for (SoundData sound : sounds) {
                 foundSongs.add(sound.getSound());
 
@@ -92,7 +92,7 @@ public class PlaySoundsFlag extends Handler {
                     };
 
                     this.runnables.put(sound.getSound(), runnable);
-                    runnable.runTaskTimer(WorldGuardExtraFlagsPlugin.getPlugin(), 0L, sound.getInterval());
+                    runnable.runTaskTimer(WorldGuardExtraFlagsPlugin.getInstance(), 0L, sound.getInterval());
                 }
             }
         }

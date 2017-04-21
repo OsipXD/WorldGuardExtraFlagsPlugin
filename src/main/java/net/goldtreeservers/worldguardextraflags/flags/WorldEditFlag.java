@@ -22,12 +22,12 @@ public class WorldEditFlag extends AbstractDelegateExtent {
 
     @Override
     public boolean setBlock(Vector location, BaseBlock block) throws WorldEditException {
-        Player player = WorldGuardExtraFlagsPlugin.getPlugin().getServer().getPlayer(this.actor.getUniqueId());
+        Player player = WorldGuardExtraFlagsPlugin.getInstance().getServer().getPlayer(this.actor.getUniqueId());
         if (WorldGuardExtraFlagsPlugin.getWorldGuard().getSessionManager().hasBypass(player, player.getWorld())) {
             return super.setBlock(location, block);
         } else {
             ApplicableRegionSet regions = WorldGuardExtraFlagsPlugin.getWorldGuard().getRegionContainer().createQuery().getApplicableRegions(BukkitUtil.toLocation(player.getWorld(), location));
-            State state = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.worldEdit);
+            State state = regions.queryValue(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.WORLD_EDIT);
             if (state != State.DENY) {
                 return super.setBlock(location, block);
             } else {

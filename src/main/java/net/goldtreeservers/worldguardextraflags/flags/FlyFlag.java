@@ -16,7 +16,7 @@ public class FlyFlag extends FlagValueChangeHandler<State> {
     private Boolean originalFly;
     private Boolean currentValue;
     protected FlyFlag(Session session) {
-        super(session, WorldGuardExtraFlagsPlugin.fly);
+        super(session, WorldGuardExtraFlagsPlugin.FLY);
     }
 
     private void updateFly(Player player, State newValue, World world) {

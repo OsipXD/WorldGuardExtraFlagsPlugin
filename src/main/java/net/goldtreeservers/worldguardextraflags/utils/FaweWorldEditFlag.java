@@ -36,7 +36,7 @@ public class FaweWorldEditFlag extends FaweMaskManager<Player> {
     }
 
     public boolean isDenied(LocalPlayer localplayer, ProtectedRegion region) {
-        return region.getFlag(WorldGuardExtraFlagsPlugin.worldEdit) == State.DENY;
+        return region.getFlag(WorldGuardExtraFlagsPlugin.WORLD_EDIT) == State.DENY;
     }
 
     @Override

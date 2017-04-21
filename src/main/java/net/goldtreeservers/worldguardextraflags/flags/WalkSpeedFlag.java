@@ -15,7 +15,7 @@ public class WalkSpeedFlag extends FlagValueChangeHandler<Double> {
     private Float originalWalkSpeed;
 
     protected WalkSpeedFlag(Session session) {
-        super(session, WorldGuardExtraFlagsPlugin.walkSpeed);
+        super(session, WorldGuardExtraFlagsPlugin.WALK_SPEED);
     }
 
     private void updateWalkSpeed(Player player, Double newValue, World world) {

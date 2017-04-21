@@ -25,9 +25,9 @@ public class TeleportOnExitFlag extends Handler {
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         if (!player.hasMetadata("WorldGuardExtraFlagsWaitingForTeleportationToBeDone")) {
             for (ProtectedRegion region : exited) {
-                com.sk89q.worldedit.Location location = region.getFlag(WorldGuardExtraFlagsPlugin.teleportOnExit);
+                com.sk89q.worldedit.Location location = region.getFlag(WorldGuardExtraFlagsPlugin.TELEPORT_ON_EXIT);
                 if (location != null) {
-                    player.setMetadata("WorldGuardExtraFlagsWaitingForTeleportationToBeDone", new FixedMetadataValue(WorldGuardExtraFlagsPlugin.getPlugin(), null));
+                    player.setMetadata("WorldGuardExtraFlagsWaitingForTeleportationToBeDone", new FixedMetadataValue(WorldGuardExtraFlagsPlugin.getInstance(), null));
                     player.teleport(BukkitUtil.toLocation(location));
                     break;
                 }

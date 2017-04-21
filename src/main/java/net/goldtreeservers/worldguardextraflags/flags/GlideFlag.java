@@ -16,7 +16,7 @@ public class GlideFlag extends FlagValueChangeHandler<State> {
     private Boolean originalGlide;
     private Boolean currentValue;
     protected GlideFlag(Session session) {
-        super(session, WorldGuardExtraFlagsPlugin.glide);
+        super(session, WorldGuardExtraFlagsPlugin.GLIDE);
     }
 
     private void updateGlide(Player player, State newValue, World world) {

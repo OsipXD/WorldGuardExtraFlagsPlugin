@@ -19,7 +19,7 @@ public class BlockedEffectsFlag extends Handler {
     @Override
     public void tick(Player player, ApplicableRegionSet set) {
         if (!this.getSession().getManager().hasBypass(player, player.getWorld())) {
-            for (Set<PotionEffectType> potionEffects : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.blockedEffects)) {
+            for (Set<PotionEffectType> potionEffects : set.queryAllValues(WorldGuardExtraFlagsPlugin.getWorldGuard().wrapPlayer(player), WorldGuardExtraFlagsPlugin.BLOCKED_EFFECTS)) {
                 if (potionEffects != null) {
                     for (PotionEffectType potionEffect : potionEffects) {
                         if (potionEffect != null) {

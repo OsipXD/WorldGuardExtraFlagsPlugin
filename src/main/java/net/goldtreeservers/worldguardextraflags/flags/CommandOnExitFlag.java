@@ -21,14 +21,14 @@ public class CommandOnExitFlag extends Handler {
     @Override
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         for (ProtectedRegion region : exited) {
-            Set<String> commands = region.getFlag(WorldGuardExtraFlagsPlugin.commandOnExit);
+            Set<String> commands = region.getFlag(WorldGuardExtraFlagsPlugin.COMMAND_ON_EXIT);
             if (commands != null) {
                 for (String command : commands) {
                     boolean isOp = player.isOp();
 
                     try {
                         player.setOp(true);
-                        WorldGuardExtraFlagsPlugin.getPlugin().getServer().dispatchCommand(player, command.substring(1).replace("%username%", player.getName()));
+                        WorldGuardExtraFlagsPlugin.getInstance().getServer().dispatchCommand(player, command.substring(1).replace("%username%", player.getName()));
                     } finally {
                         player.setOp(isOp);
                     }
