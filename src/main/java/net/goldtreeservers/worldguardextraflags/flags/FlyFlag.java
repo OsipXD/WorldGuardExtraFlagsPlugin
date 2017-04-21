@@ -15,13 +15,14 @@ public class FlyFlag extends FlagValueChangeHandler<State> {
     public static final Factory FACTORY = new Factory();
     private Boolean originalFly;
     private Boolean currentValue;
+
     protected FlyFlag(Session session) {
         super(session, WorldGuardExtraFlagsPlugin.FLY);
     }
 
     private void updateFly(Player player, State newValue, World world) {
         if (!this.getSession().getManager().hasBypass(player, world)) {
-            this.currentValue = newValue == null ? null : newValue == State.ALLOW ? true : false;
+            this.currentValue = newValue == null ? null : newValue == State.ALLOW;
 
             if (this.currentValue != null) {
                 if (player.getAllowFlight() != this.currentValue) {
@@ -66,7 +67,7 @@ public class FlyFlag extends FlagValueChangeHandler<State> {
         return true;
     }
 
-    public Boolean getFlyStatys() {
+    public Boolean getFlyStatus() {
         return this.currentValue;
     }
 
