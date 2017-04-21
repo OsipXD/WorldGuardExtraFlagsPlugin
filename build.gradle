@@ -6,7 +6,7 @@ plugins {
 group = 'net.goldtreeservers'
 version = '2.12.2'
 
-description = "WorldGuardExtraFlags"
+description = 'WorldGuardExtraFlags'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -17,32 +17,37 @@ repositories {
     mavenCentral()
 
     maven {
-        name "spigot-repo"
-        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        name 'spigot-repo'
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
     maven {
-        name "sk89q-repo"
-        url "https://maven.sk89q.com/repo/"
+        name 'sk89q-repo'
+        url 'https://maven.sk89q.com/repo/'
     }
     maven {
-        name "ess-repo"
-        url "http://repo.ess3.net/content/groups/essentials"
-     }
+        name 'ess-repo'
+        url 'http://repo.ess3.net/content/groups/essentials'
+    }
+    maven {
+        name 'fawe-repo'
+        url 'http://ci.athion.net/job/FastAsyncWorldEdit/ws/mvn/'
+    }
 }
 
 dependencies {
-    compile group: 'com.connorlinfoot', name: 'TitleAPI', version:'1.7.4'
-    compile group: 'net.elseland.xikage', name: 'MythicMobs', version:'2.4.5'
-    compile group: 'com.boydti', name: 'fawe-api', version:'3.5.1'
-    compile group: 'net.ess3', name: 'Essentials', version:'2.13-SNAPSHOT'
-    compile(group: 'org.spigotmc', name: 'spigot-api', version:'1.11.2-R0.1-SNAPSHOT') {
-       /* This dependency was originally in the Maven provided scope, but the project was not of type war.
-       This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
-       Please review and delete this closure when resolved. */
+    compile files('lib/TitleAPI-1.7.4.jar', 'lib/MythicMobs-2.5.11.jar')
+    compile group: 'com.sk89q.worldguard', name: 'worldguard-legacy', version:'6.1.3-SNAPSHOT'
+    compile(group: 'org.spigotmc', name: 'spigot-api', version: '1.11.2-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5'
     }
-    compile(group: 'com.sk89q.worldguard', name: 'worldguard-legacy', version:'6.1.3-SNAPSHOT') {
-       /* This dependency was originally in the Maven provided scope, but the project was not of type war.
-       This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
-       Please review and delete this closure when resolved. */
+    compile(group: 'com.boydti', name: 'fawe-api', version: 'latest') {
+        exclude group: 'co.aikar'
+        exclude group: 'com.plotsquared'
+        exclude group: 'net.fabiozumbi12'
+        exclude group: 'org.primesoft'
+    }
+    compile(group: 'net.ess3', name: 'Essentials', version: '2.13-SNAPSHOT') {
+        exclude group: 'net.milkbowl.vault'
+        exclude group: 'de.bananaco'
     }
 }

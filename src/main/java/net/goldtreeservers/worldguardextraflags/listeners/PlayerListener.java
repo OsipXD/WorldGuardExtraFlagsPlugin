@@ -83,7 +83,11 @@ public class PlayerListener implements Listener {
     public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent event) {
         ItemMeta itemMeta = event.getItem().getItemMeta();
         if (itemMeta instanceof PotionMeta) {
-            WorldGuardExtraFlagsPlugin.getWorldGuard().getSessionManager().get(event.getPlayer()).getHandler(GiveEffectsFlag.class).drinkPotion(Potion.fromItemStack(event.getItem()).getEffects());
+            WorldGuardExtraFlagsPlugin
+                    .getWorldGuard()
+                    .getSessionManager().get(event.getPlayer())
+                    .getHandler(GiveEffectsFlag.class)
+                    .drinkPotion(Potion.fromItemStack(event.getItem()).getEffects());
         } else {
             Material material = event.getItem().getType();
             if (material == Material.MILK_BUCKET) {

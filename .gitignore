@@ -1,2 +1,7 @@
+
+## IntelliJ IDEA
 .idea/
+
+## Gradle
 .gradle/
+build/
