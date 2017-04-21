@@ -8,8 +8,7 @@ import net.goldtreeservers.worldguardextraflags.flags.WorldEditFlag;
 public class WorldEditListener {
     @Subscribe(priority = EventHandler.Priority.VERY_EARLY)
     public void onEditSessionEvent(EditSessionEvent event) {
-        if (event.getActor() != null) //Not a player?
-        {
+        if (event.getActor() != null) {
             event.setExtent(new WorldEditFlag(event.getExtent(), event.getActor()));
         }
     }

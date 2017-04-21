@@ -20,27 +20,6 @@ public class FlyFlag extends FlagValueChangeHandler<State> {
         super(session, WorldGuardExtraFlagsPlugin.FLY);
     }
 
-    private void updateFly(Player player, State newValue, World world) {
-        if (!this.getSession().getManager().hasBypass(player, world)) {
-            this.currentValue = newValue == null ? null : newValue == State.ALLOW;
-
-            if (this.currentValue != null) {
-                if (player.getAllowFlight() != this.currentValue) {
-                    if (this.originalFly == null) {
-                        this.originalFly = player.getAllowFlight();
-                    }
-
-                    player.setAllowFlight(this.currentValue);
-                }
-            } else {
-                if (this.originalFly != null) {
-                    player.setAllowFlight(this.originalFly);
-                    this.originalFly = null;
-                }
-            }
-        }
-    }
-
     @Override
     protected void onInitialValue(Player player, ApplicableRegionSet set, State value) {
         this.updateFly(player, value, player.getWorld());
@@ -56,6 +35,26 @@ public class FlyFlag extends FlagValueChangeHandler<State> {
     protected boolean onAbsentValue(Player player, Location from, Location to, ApplicableRegionSet toSet, State lastValue, MoveType moveType) {
         this.updateFly(player, null, player.getWorld());
         return true;
+    }
+
+    private void updateFly(Player player, State newValue, World world) {
+        if (this.getSession().getManager().hasBypass(player, world)) {
+            return;
+        }
+
+        this.currentValue = newValue == null ? null : newValue == State.ALLOW;
+        if (this.currentValue != null) {
+            if (player.getAllowFlight() != this.currentValue) {
+                if (this.originalFly == null) {
+                    this.originalFly = player.getAllowFlight();
+                }
+
+                player.setAllowFlight(this.currentValue);
+            }
+        } else if (this.originalFly != null) {
+            player.setAllowFlight(this.originalFly);
+            this.originalFly = null;
+        }
     }
 
     @Override
